@@ -19,7 +19,12 @@ namespace Rasputin.TM {
             string rk = userID.ToString();
             log.LogInformation($"FindUser: {pk},{rk}");
             TableOperation operation = TableOperation.Retrieve(pk, rk);
-            return (User)await tblUser.ExecuteAsync(operation);
+            try {
+                return (User)await tblUser.ExecuteAsync(operation);
+            } catch(Exception ex) {
+                log.LogWarning(ex, "FindUser", userID);
+                return null;
+            }
         }
     }
 }

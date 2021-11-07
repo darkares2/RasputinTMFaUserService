@@ -22,6 +22,9 @@ namespace Rasputin.TM
 
             Guid userID = Guid.Parse(req.Query["userID"].ToString());            
             User user = await new UserService().FindUser(log, tblUser, userID);
+            if (user == null) {
+                return new NotFoundResult();
+            }
             string responseMessage = JsonConvert.SerializeObject(user);
 
             return new OkObjectResult(responseMessage);

@@ -33,6 +33,7 @@ namespace Rasputin.TM{
             userProfile.ETag = entity.ETag;
             userProfile.Name = entity.Properties["Name"].StringValue;
             userProfile.Type = entity.Properties["Type"].StringValue;
+            userProfile.Password = entity.Properties["Password"].StringValue;
 
             return userProfile;
         }
