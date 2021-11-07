@@ -20,10 +20,8 @@ namespace Rasputin.TM
         {
             log.LogInformation("GetUser called");
 
-            Guid userID = Guid.Parse(req.Query["userID"].ToString());
-
+            Guid userID = Guid.Parse(req.Query["userID"].ToString());            
             User user = await new UserService().FindUser(log, tblUser, userID);
-
             string responseMessage = JsonConvert.SerializeObject(user);
 
             return new OkObjectResult(responseMessage);

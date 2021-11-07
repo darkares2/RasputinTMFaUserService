@@ -8,16 +8,18 @@ namespace Rasputin.TM{
             Patient,
             Doctor
         }
-        public User(string name, UserTypes type)
+        public User(string name, string password, UserTypes type)
         {
             this.PartitionKey = "p1";
             this.RowKey = Guid.NewGuid().ToString();
             this.Name = name;
+            this.Password = password;
             this.Type = type.ToString();
         }
         User() { }
         public string Name { get; set; }
         public string Type { get; set; }
+        public string Password { get; set; }
         public UserTypes TypeId { get { return (UserTypes)Enum.Parse(typeof(UserTypes), Type); } }
         public Guid UserID { get { return Guid.Parse(RowKey); } }
 

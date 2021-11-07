@@ -20,14 +20,13 @@ namespace Rasputin.TM
         {
             log.LogInformation("CreateUser called");
 
-            //string name = req.Query["name"];
-            //User.UserTypes type = (User.UserTypes)Int32.Parse(req.Query["type"]);
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             string name = data?.name;
+            string password = data?.password;
             User.UserTypes type = data?.type;
 
-            User user = await new UserService().InsertUser(log, tblUser, name, type);
+            User user = await new UserService().InsertUser(log, tblUser, name, password, type);
 
             string responseMessage = JsonConvert.SerializeObject(user);
             return new OkObjectResult(responseMessage);

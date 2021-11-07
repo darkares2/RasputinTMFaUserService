@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 
 namespace Rasputin.TM {
     public class UserService {
-        public async Task<User> InsertUser(ILogger log, CloudTable tblUser, string name, User.UserTypes type)
+        public async Task<User> InsertUser(ILogger log, CloudTable tblUser, string name, string password, User.UserTypes type)
         {
-            User user = new User(name, type);
+            User user = new User(name, password, type);
             TableOperation operation = TableOperation.Insert(user);
             await tblUser.ExecuteAsync(operation);
             return user;
@@ -21,6 +21,5 @@ namespace Rasputin.TM {
             TableOperation operation = TableOperation.Retrieve(pk, rk);
             return (User)await tblUser.ExecuteAsync(operation);
         }
-
     }
 }
