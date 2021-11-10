@@ -16,11 +16,11 @@ namespace Rasputin.TM{
             this.Password = password;
             this.Type = type.ToString();
         }
-        User() { }
+        public User() { }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Password { get; set; }
-        public UserTypes TypeId { get { return (UserTypes)Enum.Parse(typeof(UserTypes), Type); } }
+        public UserTypes TypeId { get { return Type != null ? (UserTypes)Enum.Parse(typeof(UserTypes), Type) : UserTypes.Patient; } }
         public Guid UserID { get { return Guid.Parse(RowKey); } }
 
         public static explicit operator User(TableResult v)

@@ -6,3 +6,4 @@ This service handles user related requests.
 
 - api/CreateUser  (POST) { name, password, type } - Create user
 - api/GetUser?userID=id (GET) - Get by user id
+- api/GetUser (GET) - Get all users

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Azure.Cosmos.Table;
 using Microsoft.Extensions.Logging;
@@ -11,6 +12,25 @@ namespace Rasputin.TM {
             TableOperation operation = TableOperation.Insert(user);
             await tblUser.ExecuteAsync(operation);
             return user;
+        }
+
+        public async Task<User[]> FindAll(ILogger log, CloudTable tblUser)
+        {
+            log.LogInformation($"FindAll");
+            List<User> result = new List<User>();
+            TableQuery<User> query = new TableQuery<User>();
+            TableContinuationToken continuationToken = null;
+            try {
+                do {
+                var page = await tblUser.ExecuteQuerySegmentedAsync(query, continuationToken);
+                continuationToken = page.ContinuationToken;
+                result.AddRange(page.Results);
+                } while(continuationToken != null);
+                return result.ToArray();
+            } catch(Exception ex) {
+                log.LogWarning(ex, "All");
+                return null;
+            }
         }
 
         public async Task<User> FindUser(ILogger log, CloudTable tblUser, Guid userID)

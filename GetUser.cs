@@ -20,12 +20,19 @@ namespace Rasputin.TM
         {
             log.LogInformation("GetUser called");
 
-            Guid userID = Guid.Parse(req.Query["userID"].ToString());            
-            User user = await new UserService().FindUser(log, tblUser, userID);
-            if (user == null) {
-                return new NotFoundResult();
+            string responseMessage = null;
+            string userIDString = req.Query["userID"].ToString();
+            if (userIDString != null && !userIDString.Equals("")) {
+                Guid userID = Guid.Parse(userIDString);            
+                User user = await new UserService().FindUser(log, tblUser, userID);
+                if (user == null) {
+                    return new NotFoundResult();
+                }
+                responseMessage = JsonConvert.SerializeObject(user);
+            } else {
+                User[] users = await new UserService().FindAll(log, tblUser);
+                responseMessage = JsonConvert.SerializeObject(users);                
             }
-            string responseMessage = JsonConvert.SerializeObject(user);
 
             return new OkObjectResult(responseMessage);
         }
