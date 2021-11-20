@@ -20,6 +20,7 @@ namespace Rasputin.TM{
         public string Name { get; set; }
         public string Type { get; set; }
         public string Password { get; set; }
+        public string Email { get; set; }
         public UserTypes TypeId { get { return Type != null ? (UserTypes)Enum.Parse(typeof(UserTypes), Type) : UserTypes.Patient; } }
         public Guid UserID { get { return Guid.Parse(RowKey); } }
 
@@ -31,9 +32,10 @@ namespace Rasputin.TM{
             userProfile.RowKey = entity.RowKey;
             userProfile.Timestamp = entity.Timestamp;
             userProfile.ETag = entity.ETag;
-            userProfile.Name = entity.Properties["Name"].StringValue;
-            userProfile.Type = entity.Properties["Type"].StringValue;
-            userProfile.Password = entity.Properties["Password"].StringValue;
+            userProfile.Name = entity.Properties.ContainsKey("Name") ? entity.Properties["Name"].StringValue : null;
+            userProfile.Type = entity.Properties.ContainsKey("Type") ? entity.Properties["Type"].StringValue : null;
+            userProfile.Password = entity.Properties.ContainsKey("Password") ? entity.Properties["Password"].StringValue : null;
+            userProfile.Email = entity.Properties.ContainsKey("Email") ? entity.Properties["Email"].StringValue : null;
 
             return userProfile;
         }
