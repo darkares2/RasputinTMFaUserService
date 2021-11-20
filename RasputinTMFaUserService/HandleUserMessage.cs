@@ -28,7 +28,7 @@ namespace Rasputin.TM
             var message = new SendGridMessage();
             message.AddContent("text/plain", userMessage.message);
             message.SetSubject("Mail from RasputinTM");
-            message.SetFrom("thanbol@pm.me");
+            message.SetFrom("cph-ta190@cphbusiness.dk");
             message.AddTo(user.Email);
 
             await messageCollector.AddAsync(message);
