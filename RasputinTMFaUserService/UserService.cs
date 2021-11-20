@@ -40,7 +40,8 @@ namespace Rasputin.TM {
             log.LogInformation($"FindUser: {pk},{rk}");
             TableOperation operation = TableOperation.Retrieve(pk, rk);
             try {
-                return (User)await tblUser.ExecuteAsync(operation);
+                var tableResult = await tblUser.ExecuteAsync(operation);
+                return tableResult.Result as User != null ? tableResult.Result as User : (User)tableResult;
             } catch(Exception ex) {
                 log.LogWarning(ex, "FindUser", userID);
                 return null;

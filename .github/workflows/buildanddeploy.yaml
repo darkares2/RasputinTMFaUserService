@@ -11,6 +11,7 @@ on:
 
 env:
   AZURE_FUNCTIONAPP_PACKAGE_PATH: './RasputinTMFaUserService' # set this to the path to your web app project, defaults to the repository root
+  AZURE_UNITTEST_PATH: './RasputinTMFaUserServiceTests' # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '3.1' # set this to the dotnet version to use
 
 jobs:
@@ -30,6 +31,13 @@ jobs:
         run: |
           pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
           dotnet build --configuration Release --output ./output
+          popd
+
+      - name: 'Unittests'
+        shell: pwsh
+        run: |
+          pushd './${{ env.AZURE_UNITTEST_PATH }}'
+          dotnet test --verbosity normal
           popd
 
       - name: 'Run Azure Functions Action'
