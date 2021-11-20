@@ -49,7 +49,7 @@ jobs:
           package: '${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output'
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
           
-  build-and-deploy:
+  build-and-deploy-formanualprod:
     runs-on: windows-latest
     environment:
       name: TestManual
