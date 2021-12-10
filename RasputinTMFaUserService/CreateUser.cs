@@ -24,9 +24,10 @@ namespace Rasputin.TM
             dynamic data = JsonConvert.DeserializeObject(requestBody);
             string name = data?.name;
             string password = data?.password;
+            string email = data?.email;
             User.UserTypes type = data?.type;
 
-            User user = await new UserService().InsertUser(log, tblUser, name, password, type);
+            User user = await new UserService().InsertUser(log, tblUser, name, password, type, email);
 
             string responseMessage = JsonConvert.SerializeObject(user);
             return new OkObjectResult(responseMessage);

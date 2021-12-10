@@ -8,13 +8,14 @@ namespace Rasputin.TM{
             Patient,
             Doctor
         }
-        public User(string name, string password, UserTypes type)
+        public User(string name, string password, UserTypes type, string email)
         {
             this.PartitionKey = "p1";
             this.RowKey = Guid.NewGuid().ToString();
             this.Name = name;
             this.Password = password;
             this.Type = type.ToString();
+            this.Email = email;
         }
         public User() { }
         public string Name { get; set; }
