@@ -30,7 +30,7 @@ namespace RasputinTMFaUserServiceTests
             request.Query = new QueryCollection(qs);
 
             var iLoggerMock = new Mock<ILogger>();
-            var tblUserMock = new Mock<CloudTable>(new Uri("http://localhost"), new StorageCredentials(accountName: "blah", keyValue: "blah"), (TableClientConfiguration)null);
+            var tblUserMock = new Mock<CloudTable>(new Uri("http://localhost"), new StorageCredentials(accountName: "test", keyValue: "blah"), (TableClientConfiguration)null);
             User user1 = new User() { RowKey = userID.ToString(), Name = "Test", Type = "Patient", Email = "test@test.com" };
             TableResult tableResult = new TableResult();
             tableResult.Result = user1;
